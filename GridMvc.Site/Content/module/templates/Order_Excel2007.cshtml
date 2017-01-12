@@ -1,0 +1,11 @@
+@inherits RazorTemplateFolderHost<IEnumerable<GridMvc.Site.Models.Order>>
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<worksheet xmlns='http://schemas.openxmlformats.org/spreadsheetml/2006/main' xmlns:r='http://schemas.openxmlformats.org/officeDocument/2006/relationships'>
+	<sheetData>
+   
+<row>
+<c t='inlineStr'><is><t>OrderID</t></is></c><c t='inlineStr'><is><t>CustomerID</t></is></c><c t='inlineStr'><is><t>EmployeeID</t></is></c><c t='inlineStr'><is><t>OrderDate</t></is></c><c t='inlineStr'><is><t>RequiredDate</t></is></c><c t='inlineStr'><is><t>ShippedDate</t></is></c><c t='inlineStr'><is><t>ShipVia</t></is></c><c t='inlineStr'><is><t>Freight</t></is></c><c t='inlineStr'><is><t>ShipName</t></is></c><c t='inlineStr'><is><t>ShipAddress</t></is></c><c t='inlineStr'><is><t>ShipCity</t></is></c><c t='inlineStr'><is><t>ShipRegion</t></is></c><c t='inlineStr'><is><t>ShipPostalCode</t></is></c><c t='inlineStr'><is><t>ShipCountry</t></is></c><c t='inlineStr'><is><t>Customer</t></is></c><c t='inlineStr'><is><t>Employee</t></is></c><c t='inlineStr'><is><t>OrderDetails</t></is></c></row>
+@foreach(var item in Model){
+@RenderPartial("~/Order_Excel2007_item.cshtml",item);
+}
+	</sheetData></worksheet>

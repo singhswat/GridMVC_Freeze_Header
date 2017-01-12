@@ -1,0 +1,13 @@
+@inherits RazorTemplateFolderHost<IEnumerable<GridMvc.Site.Models.Order>>
+<itext author='Andrei Ignat' title='Collection'>
+                <chapter numberdepth='0'>
+                <newline />
+                <section numberdepth='0'>
+                <table width='100%'  cellspacing='0' cellpadding='2' columns='17' grayfill='0.90'>                
+            
+<row>
+<cell><phrase font='Arial' size='12' style='bold'>OrderID</phrase></cell><cell><phrase font='Arial' size='12' style='bold'>CustomerID</phrase></cell><cell><phrase font='Arial' size='12' style='bold'>EmployeeID</phrase></cell><cell><phrase font='Arial' size='12' style='bold'>OrderDate</phrase></cell><cell><phrase font='Arial' size='12' style='bold'>RequiredDate</phrase></cell><cell><phrase font='Arial' size='12' style='bold'>ShippedDate</phrase></cell><cell><phrase font='Arial' size='12' style='bold'>ShipVia</phrase></cell><cell><phrase font='Arial' size='12' style='bold'>Freight</phrase></cell><cell><phrase font='Arial' size='12' style='bold'>ShipName</phrase></cell><cell><phrase font='Arial' size='12' style='bold'>ShipAddress</phrase></cell><cell><phrase font='Arial' size='12' style='bold'>ShipCity</phrase></cell><cell><phrase font='Arial' size='12' style='bold'>ShipRegion</phrase></cell><cell><phrase font='Arial' size='12' style='bold'>ShipPostalCode</phrase></cell><cell><phrase font='Arial' size='12' style='bold'>ShipCountry</phrase></cell><cell><phrase font='Arial' size='12' style='bold'>Customer</phrase></cell><cell><phrase font='Arial' size='12' style='bold'>Employee</phrase></cell><cell><phrase font='Arial' size='12' style='bold'>OrderDetails</phrase></cell></row>
+@foreach(var item in Model){
+@RenderPartial("~/Order_PDFtextSharpXML_item.cshtml",item);
+}
+</table></section></chapter></itext>

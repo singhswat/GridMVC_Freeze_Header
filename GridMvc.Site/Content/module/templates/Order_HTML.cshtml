@@ -1,0 +1,11 @@
+@inherits RazorTemplateFolderHost<IEnumerable<GridMvc.Site.Models.Order>>
+<html><head><title>Export</title></head><body>
+<table><tr>
+ <td>OrderID</td> <td>CustomerID</td> <td>EmployeeID</td> <td>OrderDate</td> <td>RequiredDate</td> <td>ShippedDate</td> <td>ShipVia</td> <td>Freight</td> <td>ShipName</td> <td>ShipAddress</td> <td>ShipCity</td> <td>ShipRegion</td> <td>ShipPostalCode</td> <td>ShipCountry</td> <td>Customer</td> <td>Employee</td> <td>OrderDetails</td></tr>
+@foreach(var item in Model){
+@RenderPartial("~/Order_HTML_item.cshtml",item);
+}
+</table>
+</body>
+Generated on @DateTime.Now.ToString()
+</html>

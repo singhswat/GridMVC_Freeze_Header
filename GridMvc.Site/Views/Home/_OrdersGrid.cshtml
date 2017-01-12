@@ -1,0 +1,74 @@
+﻿@using GridMvc.Html
+@using GridMvc.Site.Models
+@using GridMvc.Sorting
+@model GridMvc.Site.Models.Grids.OrdersGrid
+@helper CustomRenderingOfColumn(Order order)
+{
+    if (order.Customer.IsVip)
+    {
+    <text>Yes</text>
+    }
+    else
+    {
+    <text>No</text>
+    }
+}
+
+<meta http-equiv="X-UA-Compatible" content="IE=11;chrome=1" />
+<script src="@Url.Content("~/Scripts/jquery-3.1.1.min.js")"></script>
+<link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" />
+<script src="@Url.Content("~/Scripts/modernizr-2.8.3.js")"></script>
+<script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>
+<script src="@Url.Content("~/Scripts/bootstrap-datepicker.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery.freezeheader.js")" type="text/javascript"></script>
+
+
+<script>
+    jQuery(document).ready(function ($) {        
+        $("#data-table").freezeHeader();        
+    });   
+</script>
+
+
+@Html.Grid(Model).Named("ordersGrid").TableId("data-table").Columns(columns =>
+    {
+        /* Adding not mapped column, that renders body, using inline Razor html helper */
+        columns.Add()
+                .Encoded(false)
+                .Sanitized(false)
+                .SetWidth(30)
+                .Css("hidden-xs") //hide on phones
+                .RenderValueAs(o =>
+                    @<b>
+                        @Html.ActionLink("Edit", "Edit", new { id = o.OrderID }, new { @class = "modal_link" })
+                    </b>);
+
+        /* Adding "OrderID" column: */
+
+        columns.Add(o => o.OrderID)
+               .Titled("Number")
+               .SetWidth(100);
+
+        /* Adding "OrderDate" column: */
+        columns.Add(o => o.OrderDate, "OrderCustomDate")
+                .Titled("Date")
+                .SortInitialDirection(GridSortDirection.Descending)
+                .Format("{0:dd/MM/yyyy}")
+                .SetWidth(110);
+        //.SetFilterWidgetType(string.Empty, new { format = "dd.mm.yyyy" })
+        /* Adding "CompanyName" column: */
+        columns.Add(o => o.Customer.CompanyName)
+               .Titled("Company")
+               .SetWidth(250)
+               .ThenSortByDescending(o => o.OrderID)
+               .SetFilterWidgetType("CustomCompanyNameFilterWidget");
+        /* Adding "Vip customer" column: */
+        columns.Add(o => o.Customer.IsVip)
+                .Titled("Is Vip")
+                .SetWidth(70)
+                .Css("hidden-xs") //hide on phones
+                .RenderValueAs(o => CustomRenderingOfColumn(o));
+
+    }).SetRowCssClasses(item => item.Customer.IsVip ? "success" : string.Empty).SetRowAtr(item => "data-id='"+ item.CustomerID+"'")
+    .WithPaging(100).Sortable().Filterable().WithMultipleFilters()
+
